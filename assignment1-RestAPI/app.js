@@ -35,6 +35,16 @@ app.post("/api/v1/students", (req, res) => {
   });
 });
 
+// Get all students
+app.get("/api/v1/students", (req, res) => {
+  if (students.length < 1)
+    return res.status(404).json({
+      status: "fail",
+      message: "No student found... Create a student first!",
+    });
+  res.status(200).json(students);
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
