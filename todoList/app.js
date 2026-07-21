@@ -59,6 +59,18 @@ app.patch("/todos/:id", (req, res) => {
   res.json(todo);
 });
 
+// Delete a todo
+app.delete("/todos/:id", (req, res) => {
+  const todoId = parseInt(req.params.id);
+  const todoIndex = todos.findIndex((t) => t.id === todoId);
+
+  if (todoIndex === -1) {
+    return res.status(404).json({ error: "Todo not found!" });
+  }
+  todos.splice(todoIndex, 1);
+  res.json({ message: "Todo deleted successfully!" });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT} `);
 });
