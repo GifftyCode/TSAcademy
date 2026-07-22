@@ -52,9 +52,14 @@ app.patch("/todos/:id", (req, res) => {
   if (!todo) {
     return res.status(404).json({ error: "Todo not found!" });
   }
-  ((todo.title = title),
-    (todo.description = description),
-    (todo.completed = completed));
+
+  if (title !== undefined) todo.title = title;
+  if (description !== undefined) todo.description = description;
+  if (completed !== undefined) todo.completed = completed;
+
+  // ((todo.title = title),
+  //   (todo.description = description),
+  //   (todo.completed = completed));
 
   res.json(todo);
 });

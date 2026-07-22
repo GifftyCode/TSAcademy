@@ -8,8 +8,8 @@ const PORT = 8080;
 
 const students = [];
 
-// Create a student
-app.post("/api/v1/students", (req, res) => {
+// Add a new student
+app.post("/api/students", (req, res) => {
   const nextId = students.length + 1;
   const { firstName, lastName, gender, email, course, enrollmentDate } =
     req.body;
@@ -24,6 +24,7 @@ app.post("/api/v1/students", (req, res) => {
     gender,
     email,
     course,
+    grade: 0,
     enrollmentDate: new Date(),
   };
 
@@ -36,13 +37,29 @@ app.post("/api/v1/students", (req, res) => {
 });
 
 // Get all students
-app.get("/api/v1/students", (req, res) => {
+app.get("/api/students", (req, res) => {
   if (students.length < 1)
     return res.status(404).json({
       status: "fail",
       message: "No student found... Create a student first!",
     });
   res.status(200).json(students);
+});
+
+// Get a student by ID
+app.get("/api/students/:id", (req, res) => {
+  const id = req.params.id;
+
+  const student = students.find((student) => student.studentId === id);
+
+  if (!student) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Student not found!",
+    });
+  }
+
+  res.status(200).json(student);
 });
 
 app.listen(PORT, () => {
