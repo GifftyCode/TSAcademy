@@ -75,6 +75,21 @@ app.patch("/api/students/:id", (req, res) => {
   res.status(201).json(student);
 });
 
+// Delete a student
+app.delete("/api/students/:id", (req, res) => {
+  const { id } = req.params;
+  const studentIndex = students.findIndex(
+    (student) => student.studentId === id,
+  );
+
+  if (studentIndex === -1) {
+    return res.status(404).json({ error: "Student not found!" });
+  }
+
+  students.splice(studentIndex, 1);
+  res.status(200).json({ message: "Student deleted successfully." });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
