@@ -32,3 +32,6 @@ const userSchema = new mongose.Schema({
   },
   timeStamp: true, // Date created and date updated
 });
+
+// Create Model from schema
+const User = mongose.model("user", userSchema);
