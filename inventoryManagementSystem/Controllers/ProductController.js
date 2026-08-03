@@ -40,6 +40,12 @@ exports.createProduct = async (req, res) => {
   try {
     const { name, size, description, price, quantity } = req.body;
 
+    if (!name || !size || !description || !price || !quantity) {
+      return res
+        .status(200)
+        .json({ message: "Please provide all required fields" });
+    }
+
     const product = new Product({
       name,
       size,
