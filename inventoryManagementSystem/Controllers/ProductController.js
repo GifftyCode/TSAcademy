@@ -85,3 +85,51 @@ exports.updateProduct = async (req, res) => {
       .json({ message: "Error updating product", error: error.message });
   }
 };
+
+// Get all products
+exports.getAllProducts = async (req, res) => {
+  try {
+    const product = await Product.find();
+    if (!product)
+      return res.status(404).json({ message: "No available products yet..." });
+    res.status(200).json(product);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error getting products", error: error.message });
+  }
+};
+
+// Get a single product
+exports.getProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(400).json({ message: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error getting product", error: error.message });
+  }
+};
+
+// Delete a product
+exports.deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+
+    if (!product) {
+      return res.status(400).json({ message: "Product not found" });
+    }
+    res.status(204).json({ message: "Product deleted successfully!" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error deleting product", error: error.message });
+  }
+};
