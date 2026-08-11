@@ -1,4 +1,5 @@
 const User = require("../Models/Users");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Create a user
@@ -7,11 +8,11 @@ exports.createUser = async (req, res) => {
     // Check if all required field are provided
     if (
       !req.body.name ||
-      req.body.email ||
-      req.body.password ||
-      req.body.gender ||
-      req.body.phone ||
-      req.body.role
+      !req.body.email ||
+      !req.body.password ||
+      !req.body.gender ||
+      !req.body.phone ||
+      !req.body.role
     )
       return res
         .status(400)
