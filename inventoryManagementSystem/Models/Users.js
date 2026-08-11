@@ -1,7 +1,5 @@
 const mongose = require("mongose");
 const bcrypt = require("bcryptjs");
-const { type } = require("node:os");
-const { timeStamp } = require("node:console");
 
 const userSchema = new mongoose.Schema(
   {
@@ -22,6 +20,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    hasAtmCard: {
+      type: Boolean,
+      default: false,
+    },
     phone: {
       type: String,
       required: true,
@@ -32,7 +34,7 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
   },
-  { timeStamp: true }, // Date created and date updated
+  { timestamps: true }, // Date created and date updated
 );
 
 // Create Model from schema
