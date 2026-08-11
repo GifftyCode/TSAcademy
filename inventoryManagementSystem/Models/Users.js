@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    hasAtmCard: {
+    hasAdminAccess: {
       type: Boolean,
       default: false,
     },
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
+      enum: ["superadmin", "storekeeper", "salesperson"],
       default: "user",
     },
   },
