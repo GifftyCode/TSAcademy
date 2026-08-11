@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { timeStamp } = require("node:console");
 
 const productSchema = new mongoose.Schema(
   {
@@ -23,8 +22,13 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    isAvailable: {
+      type: Boolean,
+      default: true,
+    },
+    color: String,
   },
-  { timeStamp: true },
+  { timestamps: true },
 );
 
 // create model from schema
