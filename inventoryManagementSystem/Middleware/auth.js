@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 // Middleware to verify token
-exports.protect = (req, res) => {
+exports.protect = (req, res, next) => {
   const token =
     req.headers.authorization && req.headers.authorization.split(" ")[1];
 
@@ -10,10 +10,10 @@ exports.protect = (req, res) => {
   }
 
   try {
-    const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decode;
-    nextTick();
+    next();
   } catch (error) {
-    return res.status(401).json({ message: "Not authorization, token failed" });
+    return res.status(401).json({ message: "Not authorized, token failed" });
   }
 };

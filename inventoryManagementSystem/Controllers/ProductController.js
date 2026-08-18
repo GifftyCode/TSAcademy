@@ -67,13 +67,20 @@ exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, size, description, price, quantity } = req.body;
-    const product = await Product.findByIdAndDelete(id, {
-      name,
-      size,
-      description,
-      price,
-      quantity,
-    });
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        name,
+        size,
+        description,
+        price,
+        quantity,
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
 
     if (!product) {
       return res.status(400).json({ message: "Product not found" });

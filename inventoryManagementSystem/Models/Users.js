@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,7 +30,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ["superadmin", "storekeeper", "salesperson"],
-      default: "user",
+      default: "salesperson",
     },
   },
   { timestamps: true }, // Date created and date updated
