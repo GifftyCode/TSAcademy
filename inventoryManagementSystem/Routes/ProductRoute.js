@@ -1,6 +1,10 @@
 const express = require("express");
 
+//  import authentication middleware
 const { protect } = require("../Middleware/auth");
+
+// import authorization middleware
+const { authorize } = require("../Middleware/role");
 
 const router = express.Router();
 
@@ -8,7 +12,12 @@ const router = express.Router();
 const productController = require("../Controllers/ProductController");
 
 // Define the routes
-router.post("/createproduct", protect, productController.createProduct);
+router.post(
+  "/createproduct",
+  protect,
+  authorize("superadmin"),
+  productController.createProduct,
+);
 router.put("/updateproduct/:id", productController.updateProduct);
 router.get("/getAllProducts", productController.getAllProducts);
 router.get("/getProduct/:id", productController.getProduct);
