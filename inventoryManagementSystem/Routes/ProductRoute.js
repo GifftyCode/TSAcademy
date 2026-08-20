@@ -18,7 +18,12 @@ router.post(
   authorize("superadmin"),
   productController.createProduct,
 );
-router.put("/updateproduct/:id", productController.updateProduct);
+router.put(
+  "/updateproduct/:id",
+  protect,
+  authorize("storekeeper"),
+  productController.updateProduct,
+);
 router.get("/getAllProducts", productController.getAllProducts);
 router.get("/getProduct/:id", productController.getProduct);
 router.delete("/deleteProduct/:id", productController.deleteProduct);
