@@ -6,6 +6,8 @@ const { protect } = require("../Middleware/auth");
 // import authorization middleware
 const { authorize } = require("../Middleware/role");
 
+const upload = require("../Middleware/upload");
+
 const router = express.Router();
 
 // Import the product controller
@@ -15,7 +17,8 @@ const productController = require("../Controllers/ProductController");
 router.post(
   "/createproduct",
   protect,
-  authorize("superadmin"),
+  upload.single("image"),
+  // authorize("superadmin"),
   productController.createProduct,
 );
 router.put(

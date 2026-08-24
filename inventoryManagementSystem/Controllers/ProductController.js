@@ -46,12 +46,17 @@ exports.createProduct = async (req, res) => {
         .json({ message: "Please provide all required fields" });
     }
 
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload an image" });
+    }
+
     const product = new Product({
       name,
       size,
       description,
       price,
       quantity,
+      image: req.file.path, // save image path to db
     });
     await product.save();
     res.status(201).json({ message: "Product created successfully", product });

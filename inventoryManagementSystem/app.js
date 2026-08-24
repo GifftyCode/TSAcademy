@@ -12,8 +12,6 @@ const PORT = process.env.PORT;
 const productRoute = require("./Routes/ProductRoute");
 const userRoute = require("./Routes/UserRoute");
 
-app.use(express.json()); // Middleware to parse JSON request bodies
-
 app.use("/products", productRoute);
 app.use("/users", userRoute);
 
