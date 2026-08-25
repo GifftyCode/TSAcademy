@@ -1,4 +1,5 @@
 const Product = require("../Models/Products");
+const sendEmail = require("../Middleware/sendEmail");
 
 // const createProduct = async (req, res) => {
 //     try {
@@ -58,7 +59,18 @@ exports.createProduct = async (req, res) => {
       quantity,
       image: req.file.path, // save image path to db
     });
+
     await product.save();
+
+    // generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000); // generate a 6 digit otp
+
+    // send email notification to the admin that a new product has been created
+    const subject = "New Product Created";
+    const text = `A new product has been created: here is your OTP: ${otp}\n\nName: ${name}\nSize: ${size}\nDescription: ${description}\nPrice: ${price}`;
+
+    await sendEmail("ulokangozi@gmail.com", subject, text);
+
     res.status(201).json({ message: "Product created successfully", product });
   } catch (error) {
     res
