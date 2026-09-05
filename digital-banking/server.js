@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 
 const onboardRoutes = require("./routes/onboardRoutes");
 const accountRoutes = require("./routes/accountRoutes");
+const bankingRoutes = require("./routes/bankingRoutes");
 
 const app = express();
 
@@ -12,6 +13,7 @@ connectDB();
 app.use(express.json());
 app.use("/api", onboardRoutes);
 app.use("/api", accountRoutes);
+app.use("/api", bankingRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Digital Banking API is alive and well" });
