@@ -19,10 +19,10 @@ const customerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    kyc: {
+    kycType: {
       type: String,
       enum: ["bvn", "nin"],
-      required: String,
+      required: true,
     },
     kycID: {
       type: String,
@@ -37,4 +37,4 @@ const customerSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.Model("Customer", customerSchema);
+module.exports = mongoose.model("Customer", customerSchema);
